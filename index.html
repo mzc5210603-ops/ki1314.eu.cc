@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="聚合全球最新资讯，支持分类浏览、关键词搜索、标签筛选">
+    <title>资讯聚合 - NewsHub</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="header">
+        <div class="container header-inner">
+            <div class="logo">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/>
+                    <path d="M18 14h-8"/>
+                    <path d="M15 18h-5"/>
+                    <path d="M10 6h8v4h-8V6Z"/>
+                </svg>
+                <span>NewsHub</span>
+            </div>
+
+            <div class="search-box">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/>
+                    <path d="m21 21-4.3-4.3"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="搜索资讯标题或内容..." />
+                <button id="clearSearch" class="clear-btn" title="清除">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 6 6 18"/>
+                        <path d="m6 6 12 12"/>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="header-actions">
+                <button id="themeToggle" class="icon-btn" title="切换主题">
+                    <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="4"/>
+                        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+                    </svg>
+                    <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                    </svg>
+                </button>
+                <button id="menuToggle" class="icon-btn mobile-only" title="菜单">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 6h18M3 12h18M3 18h18"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主体内容 -->
+    <main class="main">
+        <div class="container layout">
+            <!-- 侧边栏 -->
+            <aside class="sidebar" id="sidebar">
+                <!-- 分类 -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">资讯分类</h3>
+                    <nav class="category-list" id="categoryList">
+                        <button class="category-item active" data-category="all">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect width="7" height="7" x="3" y="3" rx="1"/>
+                                <rect width="7" height="7" x="14" y="3" rx="1"/>
+                                <rect width="7" height="7" x="14" y="14" rx="1"/>
+                                <rect width="7" height="7" x="3" y="14" rx="1"/>
+                            </svg>
+                            <span>全部</span>
+                            <span class="count" id="count-all">0</span>
+                        </button>
+                        <button class="category-item" data-category="tech">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                <path d="M8 21h8M12 17v4"/>
+                            </svg>
+                            <span>科技</span>
+                            <span class="count" id="count-tech">0</span>
+                        </button>
+                        <button class="category-item" data-category="business">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M3 7V5a2 2 0 0 1 2-2h5v20H5a2 2 0 0 1-2-2v-2Z"/>
+                                <path d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5V3Z"/>
+                            </svg>
+                            <span>财经</span>
+                            <span class="count" id="count-business">0</span>
+                        </button>
+                        <button class="category-item" data-category="sports">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M6.1 6.1c3.9 3.9 7.9 7.9 11.8 11.8M17.9 6.1C14 10 10 14 6.1 17.9M2 12h20M12 2v20"/>
+                            </svg>
+                            <span>体育</span>
+                            <span class="count" id="count-sports">0</span>
+                        </button>
+                        <button class="category-item" data-category="entertainment">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 8a2.83 2.83 0 0 0 4 4v-4a2.83 2.83 0 0 1-4-4h4Z"/>
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                            <span>娱乐</span>
+                            <span class="count" id="count-entertainment">0</span>
+                        </button>
+                        <button class="category-item" data-category="health">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                            <span>健康</span>
+                            <span class="count" id="count-health">0</span>
+                        </button>
+                        <button class="category-item" data-category="science">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M10 2v7.31"/>
+                                <path d="M14 9.3V1.99"/>
+                                <path d="M8.5 2h7"/>
+                                <path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
+                                <path d="M5.52 16h12.96"/>
+                            </svg>
+                            <span>科学</span>
+                            <span class="count" id="count-science">0</span>
+                        </button>
+                        <button class="category-item" data-category="world">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                            </svg>
+                            <span>国际</span>
+                            <span class="count" id="count-world">0</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- 热门标签 -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">热门标签</h3>
+                    <div class="tag-cloud" id="tagCloud"></div>
+                </div>
+
+                <!-- 数据更新时间 -->
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">数据信息</h3>
+                    <div class="data-info">
+                        <div class="info-item">
+                            <span class="info-label">资讯总数</span>
+                            <span class="info-value" id="totalCount">0</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">更新时间</span>
+                            <span class="info-value" id="updateTime">-</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- 内容区 -->
+            <section class="content">
+                <!-- 筛选条 -->
+                <div class="filter-bar">
+                    <div class="filter-left">
+                        <span id="resultHint" class="result-hint">正在加载数据...</span>
+                    </div>
+                    <div class="filter-right">
+                        <label class="sort-label">
+                            <span>排序</span>
+                            <select id="sortSelect">
+                                <option value="newest">最新优先</option>
+                                <option value="oldest">最早优先</option>
+                                <option value="popular">热门优先</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 已选筛选标签 -->
+                <div class="active-filters" id="activeFilters" style="display:none;">
+                    <span class="filter-prefix">当前筛选：</span>
+                    <div id="activeFilterChips"></div>
+                    <button id="clearAllFilters" class="clear-all-btn">清除全部</button>
+                </div>
+
+                <!-- 资讯列表 -->
+                <div class="news-grid" id="newsGrid"></div>
+
+                <!-- 加载状态 -->
+                <div class="loading" id="loadingState">
+                    <div class="spinner"></div>
+                    <p>正在加载资讯...</p>
+                </div>
+
+                <!-- 空状态 -->
+                <div class="empty-state" id="emptyState" style="display:none;">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M10 2v7.31"/>
+                        <path d="M14 9.3V1.99"/>
+                        <path d="M8.5 2h7"/>
+                        <path d="M14 9.3a6.5 6.5 0 1 1-4 0"/>
+                        <path d="M5.52 16h12.96"/>
+                        <path d="M9 22h6"/>
+                    </svg>
+                    <h3>暂无资讯</h3>
+                    <p>换个关键词或筛选条件试试吧</p>
+                    <button id="resetFilters" class="primary-btn">重置筛选</button>
+                </div>
+
+                <!-- 分页 -->
+                <div class="pagination" id="pagination" style="display:none;">
+                    <button id="prevPage" class="page-btn" disabled>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m15 18-6-6 6-6"/>
+                        </svg>
+                        上一页
+                    </button>
+                    <div class="page-numbers" id="pageNumbers"></div>
+                    <button id="nextPage" class="page-btn">
+                        下一页
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="m9 18 6-6-6-6"/>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- 返回顶部 -->
+    <button id="backToTop" class="back-to-top" title="返回顶部" style="display:none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="m18 15-6-6-6 6"/>
+        </svg>
+    </button>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
